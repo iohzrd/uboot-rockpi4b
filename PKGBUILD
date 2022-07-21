@@ -31,6 +31,7 @@ prepare() {
 }
 
 build() {
+  echo "build"
   # Avoid build warnings by editing a .config option in place instead of
   # appending an option to .config, if an option is already present
   update_config() {
@@ -50,8 +51,8 @@ build() {
   cd trusted-firmware-a-${_tfaver}
 
   echo -e "\nBuilding TF-A for Radxa Rock Pi 4B...\n"
-  # make PLAT=rk3399
-  make CROSS_COMPILE=aarch64-linux-gnu- PLAT=rk3399
+  make PLAT=rk3399
+  # make CROSS_COMPILE=aarch64-linux-gnu- PLAT=rk3399
   cp build/rk3399/release/bl31/bl31.elf ../u-boot-${pkgver/rc/-rc}
 
   cd ../u-boot-${pkgver/rc/-rc}
@@ -73,6 +74,7 @@ build() {
 }
 
 package() {
+  echo "package"
   cd u-boot-${pkgver/rc/-rc}
 
   mkdir -p "${pkgdir}/boot/extlinux"
